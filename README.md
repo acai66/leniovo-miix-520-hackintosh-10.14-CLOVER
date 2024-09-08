@@ -43,7 +43,7 @@ Thanks  [jamesxxx1997](screw pcbeta and their invite system, no link xD) for tra
 <div align=center><img src="https://raw.githubusercontent.com/acai66/lenovo-miix-520-hackintosh-CLOVER/master/Resource/images/OpenCoreBootloader.png" width="95%" /></div>
 
 - Mac OS screenshot：
-<div align=center><img src="https://raw.githubusercontent.com/DosDokTor/lenovo-miix-520-ventura/tree/DosDokTor-patch-1/MacOS15.png" width="95%" /></div>
+<div align=center><img src="https://github.com/DosDokTor/lenovo-miix-520-ventura/blob/DosDokTor-patch-1/MacOS15.png" width="95%" /></div>
 
 ## 3.What is working
 
