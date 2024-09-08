@@ -2,7 +2,7 @@
 [README](README.md) | [中文文档](README_zh.md)
 
 MiiX 520 MacOS EFI
-Boots 10.14.x - 13.X.X .
+Boots 10.14.x - 15.X.X Beta.
 
 Thanks  [jamesxxx1997](screw pcbeta and their invite system, no link xD) for translating into English.
 
@@ -43,7 +43,7 @@ Thanks  [jamesxxx1997](screw pcbeta and their invite system, no link xD) for tra
 <div align=center><img src="https://raw.githubusercontent.com/acai66/lenovo-miix-520-hackintosh-CLOVER/master/Resource/images/OpenCoreBootloader.png" width="95%" /></div>
 
 - Mac OS screenshot：
-<div align=center><img src="https://raw.githubusercontent.com/DosDokTor/lenovo-miix-520-ventura/master/MacOS%2013.5.png" width="95%" /></div>
+<div align=center><img src="https://raw.githubusercontent.com/DosDokTor/lenovo-miix-520-ventura/master/MacOS15.png" width="95%" /></div>
 
 ## 3.What is working
 
@@ -75,6 +75,9 @@ No longer present, works as of 31/05/2023.
 No longer present, works as of 31/05/2023, confirmed to wake the system too. 
 
 ## 6.release version
+
+### v4.0 -- 2024-09-08 - Queen Elizabeth II Edition
+- Opencore 101 Update for macOS Sequoia Beta 6. 
 
 ### v3.0 -- 2023-05-31
 - Update the latest OpenCore and drivers, and support the latest macOS 13.5 Beta 2
