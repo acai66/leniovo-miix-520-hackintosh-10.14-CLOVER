@@ -1,10 +1,10 @@
 # lenovo-miix-520-hackintosh
 [README](README.md) | [中文文档](README_zh.md)
 
-macos on lenovo miix 520 is almost perfect.
-support macos 10.14.x, 10.15.x, 11.0.x .
+MiiX 520 MacOS EFI
+Boots 10.14.x - 15.X.X Beta.
 
-Thanks  [jamesxxx1997](http://i.pcbeta.com/space-uid-4849122.html) for translating into English.
+Thanks  [jamesxxx1997](screw pcbeta and their invite system, no link xD) for translating into English.
 
 
 #### Index
@@ -14,30 +14,28 @@ Thanks  [jamesxxx1997](http://i.pcbeta.com/space-uid-4849122.html) for translati
 3. What is working
 4. What is not working
 5. Bug and solution
-	- Bug1 : touchpad and touchscreen cannot use simultaneously
-	- Bug2 : after wake from sleep , keyboard type cover not working
+	NONE DETECTED YET, missing sleep when lid closed atm, will update soon.
 6. Release version
 7. Comon FAQ
-	- 1:Pre-install preparation
-	- 2:Why touchscreen cannot use after installation?
-	- 3:Why after wake up from sleep mode , keyboard type cover not working?
-	- 4:Can I update the system
-	- 5:Can I use SD card reader?
-	- 6:How to use wifi and Bluetooth？
+	- 1:Pre-install preparation - Make a new EFI partition if on a blank SSD, copy root of this folder, install MacOS from any thumbdrive, but boot from SSD.
+	- 2:Why touchscreen cannot use after installation? - Is SSDT-TPL1 enabled in Opencore Configurator?
+	- 4:Can I update the system? - Yes, at the moment, at least.
+	- 5:Can I use SD card reader? - Yes, install the Sinetek-rtsx.kext in the OC/Kexts folder and enable in OC Configurator.
+	- 6:How to use wifi and Bluetooth？ - Broadcom and Intel Wifi + Bluetooth supported.
 
 
 ## 1.Hardware configuration
 
-- Machine type model ：lenovo miix 520
+- Machine type model ：Lenovo MiiX 520
 - cpu：i5 8250u 
 - iGPU：uhd620
-- RAM：16G
+- RAM：8G
 - Sound：alc298
-- WIFI card：bcm94352z
+- WIFI card：Intel 8265
 - Display：12.2" FHD
 - Resoution：1920x1200
-- NVME SSD：samsung pm961 1TB
-- bios：6ncn35ww
+- NVME SSD：Crucial 1TB
+- bios：6NCN39WW
 
 ## 2.System screenshot
 
@@ -45,7 +43,7 @@ Thanks  [jamesxxx1997](http://i.pcbeta.com/space-uid-4849122.html) for translati
 <div align=center><img src="https://raw.githubusercontent.com/acai66/lenovo-miix-520-hackintosh-CLOVER/master/Resource/images/OpenCoreBootloader.png" width="95%" /></div>
 
 - Mac OS screenshot：
-<div align=center><img src="https://raw.githubusercontent.com/acai66/lenovo-miix-520-hackintosh-CLOVER/master/Resource/images/about.png" width="95%" /></div>
+<div align=center><img src="https://github.com/DosDokTor/lenovo-miix-520-ventura/blob/DosDokTor-patch-1/MacOS15.png" width="95%" /></div>
 
 ## 3.What is working
 
@@ -54,12 +52,11 @@ Thanks  [jamesxxx1997](http://i.pcbeta.com/space-uid-4849122.html) for translati
 3. battery status：OK
 4. brightness control：OK
 5. CPU frequency control：OK
-6. Sleep when lid closed/Awake when lid opened：OK
+6. Sleep when lid closed/Awake when lid opened：Not Yet/Will be fixed soon.
 7. Touchscreen , active stylus：OK
 8. bluetooth：OK
 9. wake up by usb mouse and keyboard：OK
-10. SD card reader : need to add by yourself , see [常见问题解答8](https://github.com/acai66/lenovo-miix-520-hackintosh-CLOVER#8读卡器能驱动吗)
-
+10. SD card reader : Copy Sinetek-rtsx.kext in /EFI/OC/Kexts and enable the kext in OC Configurator
 ## 4.What is not working
 
 1. I2C pressure sensitivity (No solution)
@@ -71,69 +68,19 @@ Thanks  [jamesxxx1997](http://i.pcbeta.com/space-uid-4849122.html) for translati
 
 ### bug1: Touchpad and touchscreen cannot use simultaneously
 
-This bug might come from the VoodooI2CHID.kext , for it will load the touchpad with this driver , which makes touchpad unusable ; 
-
-The solution to this problem is modify VoodooI2CHID.kext , making this kext cannot recognize the touchpad .
-Delete the code below in the VoodooI2CHID.kext/Contents/Info.plist
-
-    <key>VoodooI2CHIDDevice Multitouch HID Event Driver</key>
-    <dict>
-    <key>CFBundleIdentifier</key>
-    <string>com.alexandred.VoodooI2CHID</string>
-    <key>DeviceUsagePairs</key>
-    <array>
-    <dict>
-    <key>DeviceUsage</key>
-    <integer>4</integer>
-    <key>DeviceUsagePage</key>
-    <integer>13</integer>
-    </dict>
-    <dict>
-    <key>DeviceUsage</key>
-    <integer>5</integer>
-    <key>DeviceUsagePage</key>
-    <integer>13</integer>
-    </dict>
-    <dict>
-    <key>DeviceUsage</key>
-    <integer>2</integer>
-    <key>DeviceUsagePage</key>
-    <integer>13</integer>
-    </dict>
-    </array>
-    <key>IOClass</key>
-    <string>VoodooI2CMultitouchHIDEventDriver</string>
-    <key>IOProbeScore</key>
-    <integer>200</integer>
-    <key>IOProviderClass</key>
-    <string>IOHIDInterface</string>
-    </dict>
-
-The VoodooI2CHID.kext , which is in the clover uploaded to github , has deleted this code.
-I introduce this bug in order to remind myself to modify the VoodooI2CHID.kext when the VoodooI2C is updated.
-
+No longer present, works as of 31/05/2023.
 
 ### bug2: After wake from sleep , keyboard type cover not working （will work again after unplug/replug）
 
-This is a weird bug , might be associated with keyboard type cover hardware. After some research,I found that many people encounter with mouse,keyboard not working after wake up, and will work again after unplug/replug. The solution to this problem is installing sleepwatcher to monitor sleep/wakeup，run a script to reconnect usb device when after wake，this script is aimed at miix 520 keyboard type cover. If you want to solve this bug on other computer using this script，you need to modify /usr/local/acai/patch, the 0x14500000 is miix 520 keyboard type cover usb location.
-
-The procedure is listed below：
-
-1. install brew , run the code below in the terminal
-
-
-    `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-
-2.  install sleepwatcher , run the code below in terminal
-
-	`brew install sleepwatcher`
-
-3. download the patch zip : 解决唤醒后需要拔插键盘问题的方案.zip
-4. navigate to the zip kext directory , run the code below in terinal
-
-	`sudo sh ./patch.sh`
+No longer present, works as of 31/05/2023, confirmed to wake the system too. 
 
 ## 6.release version
+
+### v4.0 -- 2024-09-08 - Queen Elizabeth II Edition
+- Opencore 101 Update for macOS Sequoia Beta 6. 
+
+### v3.0 -- 2023-05-31
+- Update the latest OpenCore and drivers, and support the latest macOS 13.5 Beta 2
 
 ### v2.5 -- 2020-12-15
 - Update the latest OpenCore and drivers, and support the latest macOS 11.0.1.
